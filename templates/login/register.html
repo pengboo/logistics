@@ -1,0 +1,66 @@
+{%extends 'base_foot.html'%}
+{%block head%}
+<script type="text/javascript" src="/static/js/register.js"></script>
+{%endblock head%}
+{%block body%}
+<div class="register_con">
+    <div class="l_con fl">
+        <a class="reg_logo"><img src="/static/images/logo02.png"></a>
+        <div class="reg_slogan">足不出户 · 新鲜每一天</div>
+        <div class="reg_banner"></div>
+    </div>
+
+    <div class="r_con fr">
+        <div class="reg_title clearfix">
+            <h1>用户注册</h1>
+            <a href="#">登录</a>
+        </div>
+        <li class="reg_form clearfix">
+
+            <form class="form-register" action="/register/" method="post">
+
+                {% if message %}
+                    <div class="error_tip">{{ message }}</div>
+                {% endif %}
+
+                {% csrf_token %}
+                <ul>
+                    <li>
+                        {{ register_form.username.label_tag }}
+                        {{ register_form.username}}
+                    </li>
+                    <li>
+                        {{ register_form.password1.label_tag }}
+                        {{ register_form.password1 }}
+                    </li>
+                    <li>
+                        {{ register_form.password2.label_tag }}
+                        {{ register_form.password2 }}
+                    </li>
+                    <li>
+                        {{ register_form.phone.label_tag }}
+                        {{ register_form.phone }}
+                    </li>
+                    <li>
+                        {{ register_form.sex.label_tag }}
+                        {{ register_form.sex }}
+                    </li>
+                    <li>
+                        {{ register_form.department.label_tag }}
+                        {{ register_form.department }}
+                    </li>
+
+                    <li class="reg_sub">
+                        <a href="/login/"  ><ins>直接登录</ins></a>
+                        <button type="submit">注册</button>
+                    </li>
+                </ul>
+            </form>
+
+
+        </div>
+
+    </div>
+
+</div>
+{%endblock body%}
