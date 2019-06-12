@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, Page
+from . import models
 from .models import TypeInfo, GoodsInfo
 # Create your views here.
 
 def index(request):
     #查询各分类的最新４条、最热４条数据
     typelist = TypeInfo.objects.all()
+
+    typeinfo = models.TypeInfo.objects.all()
+    news = models.GoodsInfo.objects.all()
 
     type0 = typelist[0].goodsinfo_set.order_by('-id')[0:4]
     type01 = typelist[0].goodsinfo_set.order_by('-click')[0:4]
@@ -32,5 +36,28 @@ def index(request):
                'type3': type3, 'type31': type31,
                'type4': type4, 'type41': type41,
                'type5': type5, 'type51': type01,
+               'typeinfo': typeinfo,  # 类型信息
+               'news': news,
                }
+    return render(request, 'goods/index.html', context)
+
+#列表页
+def list(request):    #分别为类型的id，第几页，按什么排序
+    typeinfo = models.TypeInfo.objects.all()
+    news = models.GoodsInfo.objects.all()
+    #news = typeinfo.goodsinfo_set.order_by('-id')[0:2]  #取该类型最新的两个物品
+
+    #goods = GoodsInfo.objects.filter(gtype_id=int(tid)).order_by('-id')
+
+
+    context = {
+        #'title':,  #类型名称  给base传递title
+        #'page': page,             #排序后的每页元素列表
+        'typeinfo': typeinfo,     #类型信息
+        'news': news,             #新品推荐列表
+        #'sort': sort,             #传递排序数字
+        #'paginator': paginator,   #分页
+
+    }
+
     return render(request, 'goods/index.html', context)

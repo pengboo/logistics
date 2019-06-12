@@ -14,11 +14,12 @@ def hash_code(s, salt='logistics'):
 def index(request):
     if not request.session.get('is_login', None):
         return redirect('/login/')
-    return render(request, 'login/index.html')
+    return render(request, 'goods/index.html')
+
 
 def login(request):
     if request.session.get('is_login', None):
-        return redirect('/index/')
+        return redirect('/login/')
 
     if request.method == 'POST':
         login_form = forms.UserForm(request.POST)
@@ -37,7 +38,7 @@ def login(request):
                 request.session['is_login'] = True
                 request.session['user_id'] = user.id
                 request.session['user_name'] = user.name
-                return redirect('/index/')
+                return redirect('/goods/')
             else:
                 message = '密码不正确！'
                 return render(request, 'login/login.html', locals())
@@ -49,7 +50,7 @@ def login(request):
 
 def register(request):
     if request.session.get('is_login', None):
-        return redirect('/index/')
+        return redirect('/goods/')
 
     if request.method == 'POST':
         register_form = forms.RegisterForm(request.POST)

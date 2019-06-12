@@ -17,6 +17,7 @@ class GoodsInfo(models.Model):
     desc = models.CharField(max_length=200, verbose_name='型号', blank=True)
     invertory = models.IntegerField(verbose_name='库存', blank=True)
     content = models.CharField(max_length=500, verbose_name='物品详情', blank=True)
+    supplier = models.CharField(max_length=200,verbose_name='供应商', blank=True)
     type = models.ForeignKey(TypeInfo, on_delete=models.CASCADE, verbose_name='物品类型')
     last_date_added = models.DateTimeField(auto_now_add=True, verbose_name='修改时间')
 
